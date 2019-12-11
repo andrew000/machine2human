@@ -8,4 +8,8 @@
 
 >>> Strtime2seconds("1w2d6h30m42s").seconds
 801042
+
+
+>>> StringMatch("Hello", "Hellen", decorate=False).percent
+72.73
 ```
