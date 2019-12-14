@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, List
 
 
 class Seconds2human:
@@ -51,7 +51,7 @@ class Strtime2seconds:
         if string.isdigit():
             self.seconds = int(string)
 
-        tmp = []
+        tmp: List[str] = []
 
         for char in string:
             if not char.isdigit() and not tmp:
