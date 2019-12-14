@@ -11,8 +11,10 @@ class Seconds2human:
         self.minutes = seconds // 60
         seconds -= self.minutes * 60
         self.seconds = seconds
-        self.string = " ".join(
-            f"{self.__get_times(self.days, 'd')} {self.__get_times(self.hours, 'h')} {self.__get_times(self.minutes, 'm')} {self.__get_times(self.seconds, 's')}".split())
+        self.string = " ".join(filter(None, (self.__get_times(self.days, 'd'),
+                                             self.__get_times(self.hours, 'h'),
+                                             self.__get_times(self.minutes, 'm'),
+                                             self.__get_times(self.seconds, 's'))))
 
     def __str__(self) -> str:
         return self.string
