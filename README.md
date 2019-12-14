@@ -13,3 +13,8 @@
 >>> StringMatch("Hello", "Hellen", decorate=False).percent
 72.73
 ```
+
+## Run tests
+```
+pytest -q
+```
