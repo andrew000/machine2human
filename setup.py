@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='machine2human',
     version='0.0.1',
-    packages=['machine2human'],
+    packages=['m2h'],
     url='https://github.com/andrew000/machine2human',
     license='MIT License',
     author='AndrewKing',
