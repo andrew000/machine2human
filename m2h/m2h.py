@@ -29,18 +29,16 @@ def _get_times(digit: Union[int, float], tm: str) -> Union[str, None]:
     return f"{digit} {CHAR_TO_RU_STR[tm][2]}"
 
 
-class Seconds2human:
+class Sec2Hum:
+
+    ATTRIBUTE_DICT = {'weeks': 604800 , 'days': 86400, 'hours': 3600, 
+                      'minutes': 60, 'seconds': 1}
 
     def __init__(self, seconds: Union[int, float]):
-        self.weeks = seconds // 604800
-        seconds -= self.weeks * 604800
-        self.days = seconds // 86400
-        seconds -= self.days * 86400
-        self.hours = seconds // 3600
-        seconds -= self.hours * 3600
-        self.minutes = seconds // 60
-        seconds -= self.minutes * 60
-        self.seconds = seconds
+        for k, v in self.ATTRIBUTE_DICT.items():
+            self.__setattr__(k, seconds // v)
+            seconds %= v
+
         self.string = " ".join(filter(None, [_get_times(self.weeks, 'w'),
                                              _get_times(self.days, 'd'),
                                              _get_times(self.hours, 'h'),
@@ -50,8 +48,12 @@ class Seconds2human:
     def __str__(self) -> str:
         return self.string
 
+    def __repr__(self) -> str:
+        return f"{self.__class__} {self.string}"
 
-class Strtime2seconds:
+
+
+class Str2Sec:
 
     def __init__(self, string: str):
         self.seconds = 0
