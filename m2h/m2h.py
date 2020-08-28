@@ -9,6 +9,7 @@ CHAR_TO_RU_STR = {'w': ('недель', 'неделя', 'недели'),
                   's': ('секунд', 'секунда', 'секунды')}
 CHAR_TO_SEC = {'w': 604800, 'd': 86400, 'h': 3600, 'm': 60, 's': 1,
                'н': 604800, 'д': 86400, 'ч': 3600, 'м': 60, 'с': 1}
+STR_TO_SEC = {'weeks': 604800, 'days': 86400, 'hours': 3600, 'minutes': 60, 'seconds': 1}
 
 
 def _get_times(digit: Union[int, float], tm: str) -> Union[str, None]:
@@ -31,11 +32,10 @@ def _get_times(digit: Union[int, float], tm: str) -> Union[str, None]:
 
 class Sec2Hum:
 
-    ATTRIBUTE_DICT = {'weeks': 604800 , 'days': 86400, 'hours': 3600, 
-                      'minutes': 60, 'seconds': 1}
+    __slots__ = ['weeks', 'days', 'hours', 'minutes', 'seconds', 'string']
 
     def __init__(self, seconds: Union[int, float]):
-        for k, v in self.ATTRIBUTE_DICT.items():
+        for k, v in STR_TO_SEC.items():
             self.__setattr__(k, seconds // v)
             seconds %= v
 
@@ -50,7 +50,6 @@ class Sec2Hum:
 
     def __repr__(self) -> str:
         return f"{self.__class__} {self.string}"
-
 
 
 class Str2Sec:
