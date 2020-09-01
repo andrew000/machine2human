@@ -7,6 +7,6 @@ setup(
     url='https://github.com/andrew000/machine2human',
     license='MIT License',
     author='AndrewKing',
-    author_email='',
+    python_requires='>=3.6',
     description='Make machine more friendly to you! Convert seconds to a human string and back!'
 )
