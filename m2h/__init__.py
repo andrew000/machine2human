@@ -1,1 +1,1 @@
-from .m2h import Seconds2human, Strtime2seconds
+from .m2h import Sec2Hum, Str2Sec
