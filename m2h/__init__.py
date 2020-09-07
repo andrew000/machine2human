@@ -1,1 +1,1 @@
-from .m2h import Sec2Hum, Str2Sec
+from .m2h import Sec2Hum, Hum2Sec

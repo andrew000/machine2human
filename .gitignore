@@ -1,2 +1,7 @@
 /.virtualenv/
 /.idea/
+/.tox/
+/.pypirc
+/machine2human.egg-info/
+/dist/
+/build/

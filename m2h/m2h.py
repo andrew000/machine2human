@@ -31,19 +31,25 @@ def _get_times(digit: Union[int, float], tm: str) -> Union[str, None]:
 
 
 class Sec2Hum:
-
     __slots__ = ['weeks', 'days', 'hours', 'minutes', 'seconds', 'string']
 
     def __init__(self, seconds: Union[int, float]):
-        for k, v in STR_TO_SEC.items():
-            self.__setattr__(k, seconds // v)
-            seconds %= v
+        seconds = abs(seconds)
 
-        self.string = " ".join(filter(None, [_get_times(self.weeks, 'w'),
-                                             _get_times(self.days, 'd'),
-                                             _get_times(self.hours, 'h'),
-                                             _get_times(self.minutes, 'm'),
-                                             _get_times(self.seconds, 's')]))
+        if seconds == 0:
+            self.seconds = 0
+            self.string = '0 секунд'
+
+        else:
+            for k, v in STR_TO_SEC.items():
+                self.__setattr__(k, seconds // v)
+                seconds %= v
+
+            self.string = " ".join(filter(None, [_get_times(self.weeks, 'w'),
+                                                 _get_times(self.days, 'd'),
+                                                 _get_times(self.hours, 'h'),
+                                                 _get_times(self.minutes, 'm'),
+                                                 _get_times(self.seconds, 's')]))
 
     def __str__(self) -> str:
         return self.string
@@ -52,7 +58,7 @@ class Sec2Hum:
         return f"{self.__class__} {self.string}"
 
 
-class Str2Sec:
+class Hum2Sec:
 
     def __init__(self, string: str):
         self.seconds = 0
