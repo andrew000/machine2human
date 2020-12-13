@@ -29,4 +29,3 @@ def test_hum2sec():
     assert Hum2Sec('1 неделя 1 день 1 час 1 минута 1 секунда').seconds == 694861
     assert Hum2Sec('2 недели 2 дня 2 часа 2 минуты 2 секунды').seconds == 1389722
     assert Hum2Sec('5 недель 5 дней 5 часов 5 минут 5 секунд').seconds == 3474305
-

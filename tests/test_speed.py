@@ -3,7 +3,7 @@ from random import randint, choice
 
 
 def _gen_string(_range) -> str:
-    return "".join(["{}{}".format(randint(1, 100), choice("wdhmsндчмс")) for _ in range(_range)])
+    return "".join(["{}{}".format(randint(1, 100), choice("yMwdhmsгМндчмс")) for _ in range(_range)])
 
 
 test_string = _gen_string(1000000)
