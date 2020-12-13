@@ -1,4 +1,5 @@
 import re
+from datetime import timedelta
 from typing import Union
 
 RE_SIMPLE_STRING = re.compile(r"(\d+)+\s*([wdhmsндчмс])")
@@ -71,6 +72,8 @@ class Hum2Sec:
 
         else:
             self.seconds = sum([int(x[0]) * CHAR_TO_SEC[x[1]] for x in re.findall(RE_SIMPLE_STRING, self.string)])
+
+        self.delta = timedelta(seconds=self.seconds)
 
     def __str__(self) -> str:
         return str(self.seconds)
