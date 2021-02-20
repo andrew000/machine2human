@@ -1,8 +1,7 @@
-import re
 from datetime import timedelta
+from string import digits
 from typing import Union
 
-RE_SIMPLE_STRING = re.compile(r"(\d+)+\s*([yMwdhmsглМндчмс])")
 CHAR_TO_RU_STR = {'y': ('лет', 'год', 'года'),
                   'M': ('Месяцев', 'Месяц', 'Месяца'),
                   'w': ('недель', 'неделя', 'недели'),
@@ -12,6 +11,9 @@ CHAR_TO_RU_STR = {'y': ('лет', 'год', 'года'),
                   's': ('секунд', 'секунда', 'секунды')}
 CHAR_TO_SEC = {'y': 31536000, 'M': 2592000, 'w': 604800, 'd': 86400, 'h': 3600, 'm': 60, 's': 1,
                'г': 31536000, 'л': 31536000, 'М': 2592000, 'н': 604800, 'д': 86400, 'ч': 3600, 'м': 60, 'с': 1}
+
+CHAR_TO_SEC_KEYS = CHAR_TO_SEC.keys()  # speeds up parsing when checking keys
+
 STR_TO_SEC = {'years': 31536000, 'months': 2592000, 'weeks': 604800,
               'days': 86400, 'hours': 3600, 'minutes': 60, 'seconds': 1}
 
@@ -32,6 +34,21 @@ def _get_times(digit: Union[int, float], tm: str) -> Union[str, None]:
     if tmp == 0 or 5 <= tmp <= 9:
         return f"{digit} {CHAR_TO_RU_STR[tm][0]}"
     return f"{digit} {CHAR_TO_RU_STR[tm][2]}"
+
+
+def human_parser(s: str) -> int:
+    tmp_digit: str = ''
+    seconds: int = 0
+
+    for char in s:
+        if char in digits:
+            tmp_digit += char
+
+        elif tmp_digit and char in CHAR_TO_SEC_KEYS:
+            seconds += int(tmp_digit) * CHAR_TO_SEC[char]
+            tmp_digit = ''
+
+    return seconds
 
 
 class Sec2Hum:
@@ -77,7 +94,7 @@ class Hum2Sec:
     :type self.seconds: int
     """
     __seconds: int
-    __delta: timedelta
+    __timedelta: timedelta
 
     def __init__(self, string: str):
         """
@@ -92,19 +109,19 @@ class Hum2Sec:
             self.__seconds = int(self.string)
 
             try:
-                self.__delta = timedelta(seconds=self.__seconds)
+                self.__timedelta = timedelta(seconds=self.__seconds)
 
             except OverflowError:
-                self.__delta = timedelta(seconds=999999999)
+                self.__timedelta = timedelta(seconds=999999999)
 
         else:
-            self.__seconds = sum([int(x[0]) * CHAR_TO_SEC[x[1]] for x in re.findall(RE_SIMPLE_STRING, self.string)])
+            self.__seconds = human_parser(self.string)
 
             try:
-                self.__delta = timedelta(seconds=self.__seconds)
+                self.__timedelta = timedelta(seconds=self.__seconds)
 
             except OverflowError:
-                self.__delta = timedelta(seconds=999999999)
+                self.__timedelta = timedelta(seconds=999999999)
 
     @property
     def seconds(self):
@@ -115,11 +132,11 @@ class Hum2Sec:
         raise ValueError
 
     @property
-    def delta(self):
-        return self.__delta
+    def time_dlt(self):
+        return self.__timedelta
 
-    @delta.setter
-    def delta(self, value):
+    @time_dlt.setter
+    def time_dlt(self, value):
         raise ValueError
 
     def __str__(self) -> str:
