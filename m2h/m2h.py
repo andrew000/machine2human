@@ -1,3 +1,4 @@
+import warnings
 from datetime import timedelta
 from string import digits
 from typing import Union
@@ -137,6 +138,19 @@ class Hum2Sec:
 
     @time_dlt.setter
     def time_dlt(self, value):
+        raise ValueError
+
+    @property
+    def delta(self):
+        """
+        Deprecated, use time_dlt instead.
+        :return:
+        """
+        warnings.warn("Hum2Sec.delta deprecated, use Hum2Sec.time_dlt instead.", DeprecationWarning, stacklevel=2)
+        return self.__timedelta
+
+    @delta.setter
+    def delta(self, value):
         raise ValueError
 
     def __str__(self) -> str:
