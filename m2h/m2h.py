@@ -13,7 +13,7 @@ CHAR_TO_RU_STR = {'y': ('лет', 'год', 'года'),
 CHAR_TO_SEC = {'y': 31536000, 'M': 2592000, 'w': 604800, 'd': 86400, 'h': 3600, 'm': 60, 's': 1,
                'г': 31536000, 'л': 31536000, 'М': 2592000, 'н': 604800, 'д': 86400, 'ч': 3600, 'м': 60, 'с': 1}
 
-CHAR_TO_SEC_KEYS = CHAR_TO_SEC.keys()  # speeds up parsing when checking keys
+CHAR_TO_SEC_KEYS = set(CHAR_TO_SEC.keys())  # speeds up parsing when checking keys
 
 STR_TO_SEC = {'years': 31536000, 'months': 2592000, 'weeks': 604800,
               'days': 86400, 'hours': 3600, 'minutes': 60, 'seconds': 1}
