@@ -46,7 +46,10 @@ jobs:
         with:
           name: m2h-${{ matrix.os }}-${{ github.run_id }}
           if-no-files-found: error
-          path: dist/*.whl
+          compression-level: 9
+          path: |
+            dist/*.whl
+            dist/*.tar.gz
 
   publish:
     name: 🐍 Publish distribution 📦

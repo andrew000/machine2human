@@ -1,7 +1,7 @@
 [project]
 name = "machine2human"
 description = "Make machine more friendly to you! Convert seconds to a human string and back!"
-version = "0.1.0"
+version = "0.1.1"
 authors = [{ name = "andrew000", email = "help@kusbot.com" }]
 keywords = ["m2h"]
 readme = "README.md"
