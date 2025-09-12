@@ -58,13 +58,13 @@ def human_parser(*, string: str, lang: Lang) -> Seconds:
     tmp_digit: array.array[str] = array.array(ARRAY_C_TYPE)
     seconds: Seconds = 0
     char_to_sec = CHAR_TO_SEC[lang]
-    chat_to_sec_keys = CHAR_TO_SEC[lang]
+    char_to_sec_keys = frozenset(CHAR_TO_SEC[lang].keys())
 
     for char in string:
         if char in DIGITS:
             tmp_digit.append(char)
 
-        elif tmp_digit and char in chat_to_sec_keys:
+        elif tmp_digit and char in char_to_sec_keys:
             seconds += int(tmp_digit.tounicode()) * char_to_sec[char]
             tmp_digit = array.array(ARRAY_C_TYPE)
 
