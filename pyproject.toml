@@ -1,7 +1,7 @@
 [project]
 name = "machine2human"
 description = "Make machine more friendly to you! Convert seconds to a human string and back!"
-version = "0.1.1"
+version = "0.1.2"
 authors = [{ name = "andrew000", email = "help@kusbot.com" }]
 keywords = ["m2h"]
 readme = "README.md"
@@ -21,9 +21,9 @@ dependencies = []
 [project.optional-dependencies]
 dev = [
     "isort==6.0.1",
-    "mypy==1.18.1",
+    "mypy==1.18.2",
     "pre-commit==4.3.0",
-    "ruff==0.13.0",
+    "ruff==0.13.1",
     "setuptools==80.9.0",
     "wheel==0.45.1",
 ]
